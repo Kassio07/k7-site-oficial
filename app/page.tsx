@@ -265,9 +265,9 @@ ${field("mensagem")}`;
       <header className="site-header">
         <a className="brand" href="#inicio" aria-label="K7 Sites — início"><Image src="/k7-logo.png" alt="K7 Sites" width={88} height={58} priority /></a>
         <nav className={menuOpen ? "nav is-open" : "nav"} aria-label="Navegação principal">
-          <a href="#servicos" onClick={() => setMenuOpen(false)}>Serviços</a><a href="#projetos" onClick={() => setMenuOpen(false)}>Projetos</a><a href="#processo" onClick={() => setMenuOpen(false)}>Processo</a><a href="#sobre" onClick={() => setMenuOpen(false)}>Sobre</a><a href="#faq" onClick={() => setMenuOpen(false)}>Dúvidas</a><a className="nav-mobile-cta" href={whatsappLink} target="_blank" rel="noreferrer" onClick={() => setMenuOpen(false)}>Pedir orçamento</a>
+          <a href="#servicos" onClick={() => setMenuOpen(false)}>Serviços</a><a href="#projetos" onClick={() => setMenuOpen(false)}>Projetos</a><a href="#processo" onClick={() => setMenuOpen(false)}>Processo</a><a href="#sobre" onClick={() => setMenuOpen(false)}>Sobre</a><a href="#faq" onClick={() => setMenuOpen(false)}>Dúvidas</a><a className="nav-mobile-cta" href="#orcamento" onClick={() => setMenuOpen(false)}>Pedir orçamento</a>
         </nav>
-        <a className="header-cta" href={whatsappLink} target="_blank" rel="noreferrer">Pedir orçamento <Arrow /></a>
+        <a className="header-cta" href="#orcamento">Pedir orçamento <Arrow /></a>
         <button className="menu-button" type="button" aria-label={menuOpen ? "Fechar menu" : "Abrir menu"} aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}><span /><span /></button>
       </header>
 
@@ -280,7 +280,7 @@ ${field("mensagem")}`;
             <p className="eyebrow enter"><span /> SITES CRIADOS PARA POSICIONAR E CONVERTER</p>
             <h1 className="enter delay-1">Seu site ou LP pronto em até 48h. <em>A partir de R$ 399,00.</em></h1>
             <p className="hero-lead enter delay-2">Landing pages e sites profissionais que organizam sua mensagem, valorizam seu negócio e transformam visitas em oportunidades.</p>
-            <div className="hero-actions enter delay-3"><a className="button button-primary" href={whatsappLink} target="_blank" rel="noreferrer">Quero meu projeto <Arrow /></a><a className="button button-ghost" href={whatsappLink} target="_blank" rel="noreferrer">Falar com a K7 <Arrow diagonal /></a></div>
+            <div className="hero-actions enter delay-3"><a className="button button-primary" href="#orcamento">Quero meu projeto <Arrow /></a><a className="button button-ghost" href="#orcamento">Falar com a K7 <Arrow diagonal /></a></div>
             <ul className="hero-benefits enter delay-4"><li><Check /> Design exclusivo</li><li><Check /> Responsivo</li><li><Check /> Suporte próximo</li></ul>
           </div>
           <div className="hero-art enter delay-2" aria-label="Representação de um site criado pela K7 Sites">
@@ -334,7 +334,7 @@ ${field("mensagem")}`;
       </div></section>
 
       <section className="section process" id="processo"><div className="container">
-        <div className="section-heading centered process-intro reveal"><p className="eyebrow"><span /> COMO FUNCIONA</p><h2>Um processo simples, com cada etapa <em>bem definida.</em></h2><p>Você acompanha a evolução do projeto e sabe exatamente o que precisamos em cada momento.</p><a className="text-link" href={whatsappLink} target="_blank" rel="noreferrer">Começar meu projeto <Arrow /></a></div>
+        <div className="section-heading centered process-intro reveal"><p className="eyebrow"><span /> COMO FUNCIONA</p><h2>Um processo simples, com cada etapa <em>bem definida.</em></h2><p>Você acompanha a evolução do projeto e sabe exatamente o que precisamos em cada momento.</p><a className="text-link" href="#orcamento">Começar meu projeto <Arrow /></a></div>
         <div className="timeline process-timeline">{[["01", "Diagnóstico", "Entendemos seu objetivo, público, oferta, referências e necessidades técnicas."], ["02", "Estratégia e conteúdo", "Organizamos a jornada da página e definimos a mensagem principal de cada seção."], ["03", "Design e desenvolvimento", "Criamos a identidade visual da página e construímos a experiência responsiva."], ["04", "Revisão e publicação", "Aplicamos os ajustes previstos, validamos a navegação e orientamos sobre a entrega."]].map(([number, title, text]) => <article className="timeline-item reveal" key={number}><span>{number}</span><div><h3>{title}</h3><p>{text}</p></div><i><Check /></i></article>)}</div>
       </div></section>
 
@@ -344,7 +344,7 @@ ${field("mensagem")}`;
         <p className="project-disclaimer"><strong>Portfólio demonstrativo:</strong> exceto a barbearia já existente, as marcas, endereços, registros, preços e demais dados apresentados nos mockups são fictícios.</p>
       </div></section>
 
-      <section className="conversion-block"><div className="container"><div className="conversion-card reveal"><div className="conversion-grid" aria-hidden="true" /><div className="conversion-layout"><div><p className="eyebrow"><span /> SUA PRÓXIMA FASE PODE COMEÇAR AQUI</p><h2>Você já entrega um bom trabalho. Seu site precisa <em>mostrar isso.</em></h2></div><div><p>Conte o que você precisa e receba uma orientação sobre o formato mais adequado para o seu momento.</p><a className="button button-light" href={whatsappLink} target="_blank" rel="noreferrer">Falar sobre meu projeto <Arrow /></a></div></div></div></div></section>
+      <section className="conversion-block"><div className="container"><div className="conversion-card reveal"><div className="conversion-grid" aria-hidden="true" /><div className="conversion-layout"><div><p className="eyebrow"><span /> SUA PRÓXIMA FASE PODE COMEÇAR AQUI</p><h2>Você já entrega um bom trabalho. Seu site precisa <em>mostrar isso.</em></h2></div><div><p>Conte o que você precisa e receba uma orientação sobre o formato mais adequado para o seu momento.</p><a className="button button-light" href="#orcamento">Falar sobre meu projeto <Arrow /></a></div></div></div></div></section>
 
       <section className="section about" id="sobre"><div className="container">
         <div className="section-heading centered reveal"><p className="eyebrow"><span /> SOBRE A K7 SITES</p><h2>Não é só montar páginas. É <em>dar forma à sua proposta.</em></h2><p>A K7 Sites cria experiências digitais para profissionais e empresas que querem apresentar seu trabalho com mais clareza, confiança e personalidade.</p></div>
@@ -367,7 +367,7 @@ ${field("mensagem")}`;
           { name: "Landing page", description: "Para divulgar uma oferta e gerar contatos", price: "R$ 399,00", detail: "a partir de", features: ["Página completa e estratégica", "Design responsivo", "Botões para WhatsApp", "Google SEO", "Copy organizada", "Entrega ágil"] },
           { name: "Site institucional", description: "Para apresentar sua empresa com autoridade", price: "R$ 699,00", detail: "a partir de", features: ["Home e páginas internas", "Páginas de serviços", "Design profissional", "Google SEO", "WhatsApp e formulário", "Orientação após a entrega"] },
           { name: "Projeto sob medida", description: "Para necessidades, integrações e estruturas especiais", price: "Sob avaliação", detail: "orçamento após análise", features: ["Escopo personalizado", "Funcionalidades específicas", "Integrações especiais", "Planejamento por etapas", "Prazo definido em proposta", "Acompanhamento próximo"] },
-        ].map((plan, index) => <article className={index === 1 ? "price-card featured reveal" : "price-card reveal"} key={plan.name}>{index === 1 && <span className="recommended">MAIS POPULAR</span>}<small>0{index + 1}</small><h3>{plan.name}</h3><p>{plan.description}</p><div className="price"><span>{plan.detail}</span>{plan.price}</div><ul>{plan.features.map((feature) => <li key={feature}><Check />{feature}</li>)}</ul><a className={index === 1 ? "button button-primary" : "button button-ghost"} href={whatsappLink} target="_blank" rel="noreferrer">Pedir orçamento <Arrow /></a></article>)}</div>
+        ].map((plan, index) => <article className={index === 1 ? "price-card featured reveal" : "price-card reveal"} key={plan.name}>{index === 1 && <span className="recommended">MAIS POPULAR</span>}<small>0{index + 1}</small><h3>{plan.name}</h3><p>{plan.description}</p><div className="price"><span>{plan.detail}</span>{plan.price}</div><ul>{plan.features.map((feature) => <li key={feature}><Check />{feature}</li>)}</ul><a className={index === 1 ? "button button-primary" : "button button-ghost"} href="#orcamento">Pedir orçamento <Arrow /></a></article>)}</div>
         <p className="payment-note reveal"><Check /> Condição padrão sugerida: 50% antes do início e 50% na conclusão do projeto.</p>
       </div></section>
 
@@ -395,13 +395,13 @@ ${field("mensagem")}`;
         </div>
       </div></section>
 
-      <section className="final-cta"><div className="container"><div className="final-cta-card reveal"><div className="final-orbit" aria-hidden="true" /><div className="final-cta-content"><div className="mini-logo"><Image src="/k7-logo.png" alt="K7 Sites" width={70} height={70} /></div><p>SEU PRÓXIMO SITE PODE COMEÇAR AGORA</p><h2>Transforme sua presença digital em uma apresentação à altura do seu trabalho.</h2><a className="button button-light" href={whatsappLink} target="_blank" rel="noreferrer">Solicitar orçamento <Arrow /></a></div></div></div></section>
+      <section className="final-cta"><div className="container"><div className="final-cta-card reveal"><div className="final-orbit" aria-hidden="true" /><div className="final-cta-content"><div className="mini-logo"><Image src="/k7-logo.png" alt="K7 Sites" width={70} height={70} /></div><p>SEU PRÓXIMO SITE PODE COMEÇAR AGORA</p><h2>Transforme sua presença digital em uma apresentação à altura do seu trabalho.</h2><a className="button button-light" href="#orcamento">Solicitar orçamento <Arrow /></a></div></div></div></section>
 
       <footer className="footer"><div className="container footer-main">
         <div><a className="brand footer-brand" href="#inicio"><Image src="/k7-logo.png" alt="K7 Sites" width={112} height={72} /></a><p>Sites e landing pages com estratégia, identidade e acabamento profissional.</p></div>
         <div><small>NAVEGAÇÃO</small><a href="#servicos">Serviços</a><a href="#projetos">Projetos</a><a href="#processo">Processo</a><a href="#sobre">Sobre</a></div>
         <div><small>CONTATO</small><a href="mailto:k7sites@gmail.com">k7sites@gmail.com</a><a href={whatsappLink} target="_blank" rel="noreferrer">WhatsApp: (11) 94921-4071</a></div>
-        <div><small>PRONTO PARA COMEÇAR?</small><a className="footer-cta" href={whatsappLink} target="_blank" rel="noreferrer">Pedir orçamento <Arrow diagonal /></a></div>
+        <div><small>PRONTO PARA COMEÇAR?</small><a className="footer-cta" href="#orcamento">Pedir orçamento <Arrow diagonal /></a></div>
       </div><div className="container footer-bottom"><span>© {new Date().getFullYear()} K7 Sites. Todos os direitos reservados.</span><span>Design e desenvolvimento: K7 Sites</span><a href="#inicio">Voltar ao topo ↑</a></div></footer>
     </main>
   );
