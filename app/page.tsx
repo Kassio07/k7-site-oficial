@@ -7,7 +7,11 @@ import { SitePreloader } from "@/components/site-preloader";
 
 const whatsappLink = "https://wa.me/5511949214071?text=Ol%C3%A1%21%20Vim%20pelo%20site%20da%20K7%20Sites%20e%20gostaria%20de%20pedir%20um%20or%C3%A7amento.";
 const googleReviewsLink = "https://share.google/pDIhvdTpTxOyWEIOe";
-const heroTitleWords = ["Crie", "seu", "site", "e", "transforme", "visitantes", "em", "clientes.", "A", "partir", "de"];
+const heroTitleWords = [
+  { text: "Crie" }, { text: "seu" }, { text: "site" }, { text: "e" },
+  { text: "transforme" }, { text: "visitantes" }, { text: "em" }, { text: "clientes." },
+  { text: "A" }, { text: "partir" }, { text: "de" }, { text: "R$", accent: true }, { text: "399", accent: true },
+];
 
 const services = [
   { number: "01", title: "Landing pages", text: "Páginas focadas em uma oferta, com copy estratégica, estrutura persuasiva e chamadas para ação bem posicionadas.", tag: "Campanhas e lançamentos" },
@@ -283,8 +287,10 @@ ${field("mensagem")}`;
           <div className="hero-copy">
             <p className="eyebrow enter"><span /> SITES CRIADOS PARA POSICIONAR E CONVERTER</p>
             <h1 className="enter delay-1" aria-label="Crie seu site e transforme visitantes em clientes. A partir de R$ 399">
-              {heroTitleWords.map((word, index) => <span className="hero-title-word" style={{ animationDelay: `${280 + index * 75}ms` }} key={word}>{word} </span>)}
-              <em><span className="hero-title-word" style={{ animationDelay: "1105ms" }}>R$ </span><span className="hero-title-word" style={{ animationDelay: "1180ms" }}>399</span></em>
+              {heroTitleWords.map((word, wordIndex) => {
+                const characterOffset = heroTitleWords.slice(0, wordIndex).reduce((total, item) => total + item.text.length, 0);
+                return <span className={`hero-title-word${word.accent ? " is-accent" : ""}${wordIndex < heroTitleWords.length - 1 ? " has-space" : ""}`} key={word.text}>{Array.from(word.text).map((character, characterIndex) => <span className="hero-title-character" style={{ animationDelay: `${280 + (characterOffset + characterIndex) * 34}ms` }} key={`${word.text}-${characterIndex}`}>{character}</span>)}</span>;
+              })}
             </h1>
             <p className="hero-lead enter delay-2">Landing pages e sites profissionais que organizam sua mensagem, valorizam seu negócio e transformam visitas em oportunidades.</p>
             <div className="hero-actions enter delay-3"><a className="button button-primary" href="#orcamento">Quero meu projeto <Arrow /></a><a className="button button-ghost" href={whatsappLink} target="_blank" rel="noopener noreferrer">Falar com a K7 <Arrow diagonal /></a></div>
