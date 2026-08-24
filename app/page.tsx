@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { ImageStream } from "@/components/ui/image-stream";
+import { SitePreloader } from "@/components/site-preloader";
 
 const whatsappLink = "https://wa.me/5511949214071?text=Ol%C3%A1%21%20Vim%20pelo%20site%20da%20K7%20Sites%20e%20gostaria%20de%20pedir%20um%20or%C3%A7amento.";
 const googleReviewsLink = "https://share.google/pDIhvdTpTxOyWEIOe";
@@ -254,7 +255,9 @@ ${field("mensagem")}`;
   };
 
   return (
-    <main>
+    <>
+      <SitePreloader />
+      <main>
       <div className="scroll-progress" aria-hidden="true" />
       <a className="skip-link" href="#conteudo">Ir para o conteúdo</a>
 
@@ -278,7 +281,7 @@ ${field("mensagem")}`;
         <div className="container hero-layout" id="conteudo">
           <div className="hero-copy">
             <p className="eyebrow enter"><span /> SITES CRIADOS PARA POSICIONAR E CONVERTER</p>
-            <h1 className="enter delay-1">Criação de sites e landing pages profissionais A partir de <em>R$ 399,00.</em></h1>
+            <h1 className="enter delay-1">Crie seu site e transforme visitantes em clientes. A partir de <em>R$ 399</em></h1>
             <p className="hero-lead enter delay-2">Landing pages e sites profissionais que organizam sua mensagem, valorizam seu negócio e transformam visitas em oportunidades.</p>
             <div className="hero-actions enter delay-3"><a className="button button-primary" href="#orcamento">Quero meu projeto <Arrow /></a><a className="button button-ghost" href={whatsappLink} target="_blank" rel="noopener noreferrer">Falar com a K7 <Arrow diagonal /></a></div>
             <ul className="hero-benefits enter delay-4"><li><Check /> SEO preparado</li><li><Check /> Foco em conversão</li><li><Check /> Site otimizado</li></ul>
@@ -403,6 +406,7 @@ ${field("mensagem")}`;
         <div><small>CONTATO</small><a href="mailto:k7sites@gmail.com">k7sites@gmail.com</a><a href={whatsappLink} target="_blank" rel="noreferrer">WhatsApp: (11) 94921-4071</a></div>
         <div><small>PRONTO PARA COMEÇAR?</small><a className="footer-cta" href="#orcamento">Pedir orçamento <Arrow diagonal /></a></div>
       </div><div className="container footer-bottom"><span>© {new Date().getFullYear()} K7 Sites. Todos os direitos reservados.</span><span>Design e desenvolvimento: K7 Sites</span><a href="#inicio">Voltar ao topo ↑</a></div></footer>
-    </main>
+      </main>
+    </>
   );
 }
