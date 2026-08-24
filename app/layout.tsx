@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: "/k7-logo.png",
-    shortcut: "/k7-logo.png",
+    shortcut: "/k7-preloader-logo.png",
   },
   openGraph: {
     title: "K7 Sites | Presença digital com cara de grande marca",

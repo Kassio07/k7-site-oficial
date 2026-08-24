@@ -19,11 +19,24 @@ export function SitePreloader() {
 
   useLayoutEffect(() => {
     try {
-      if (sessionStorage.getItem(SESSION_KEY)) return;
-      sessionStorage.setItem(SESSION_KEY, "true");
+      if (sessionStorage.getItem(SESSION_KEY)) {
+        document.documentElement.dataset.k7Intro = "complete";
+        return;
+      }
     } catch {
       // If storage is unavailable, the intro still runs without blocking the site.
     }
+
+    document.documentElement.dataset.k7Intro = "loading";
+
+    const revealSite = () => {
+      document.documentElement.dataset.k7Intro = "complete";
+      try {
+        sessionStorage.setItem(SESSION_KEY, "true");
+      } catch {
+        // Storage can be unavailable in privacy-restricted browsing contexts.
+      }
+    };
 
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const previousOverflow = document.body.style.overflow;
@@ -43,7 +56,10 @@ export function SitePreloader() {
     if (reducedMotion) {
       setProgress(100);
       setComplete(true);
-      const exitTimer = window.setTimeout(() => setExiting(true), 120);
+      const exitTimer = window.setTimeout(() => {
+        revealSite();
+        setExiting(true);
+      }, 120);
       const removeTimer = window.setTimeout(() => {
         restoreScrollRef.current();
         setVisible(false);
@@ -70,6 +86,7 @@ export function SitePreloader() {
     const fallbackTimer = window.setTimeout(() => {
       cancelAnimationFrame(frame);
       window.removeEventListener("load", markReady);
+      revealSite();
       restoreScrollRef.current();
       setVisible(false);
     }, 3500);
@@ -93,7 +110,10 @@ export function SitePreloader() {
 
         if (finishProgress === 1) {
           setComplete(true);
-          exitTimer = window.setTimeout(() => setExiting(true), COMPLETE_HOLD);
+          exitTimer = window.setTimeout(() => {
+            revealSite();
+            setExiting(true);
+          }, COMPLETE_HOLD);
           removeTimer = window.setTimeout(() => {
             window.clearTimeout(fallbackTimer);
             restoreScrollRef.current();

@@ -7,6 +7,7 @@ import { SitePreloader } from "@/components/site-preloader";
 
 const whatsappLink = "https://wa.me/5511949214071?text=Ol%C3%A1%21%20Vim%20pelo%20site%20da%20K7%20Sites%20e%20gostaria%20de%20pedir%20um%20or%C3%A7amento.";
 const googleReviewsLink = "https://share.google/pDIhvdTpTxOyWEIOe";
+const heroTitleWords = ["Crie", "seu", "site", "e", "transforme", "visitantes", "em", "clientes.", "A", "partir", "de"];
 
 const services = [
   { number: "01", title: "Landing pages", text: "Páginas focadas em uma oferta, com copy estratégica, estrutura persuasiva e chamadas para ação bem posicionadas.", tag: "Campanhas e lançamentos" },
@@ -281,7 +282,10 @@ ${field("mensagem")}`;
         <div className="container hero-layout" id="conteudo">
           <div className="hero-copy">
             <p className="eyebrow enter"><span /> SITES CRIADOS PARA POSICIONAR E CONVERTER</p>
-            <h1 className="enter delay-1">Crie seu site e transforme visitantes em clientes. A partir de <em>R$ 399</em></h1>
+            <h1 className="enter delay-1" aria-label="Crie seu site e transforme visitantes em clientes. A partir de R$ 399">
+              {heroTitleWords.map((word, index) => <span className="hero-title-word" style={{ animationDelay: `${280 + index * 75}ms` }} key={word}>{word} </span>)}
+              <em><span className="hero-title-word" style={{ animationDelay: "1105ms" }}>R$ </span><span className="hero-title-word" style={{ animationDelay: "1180ms" }}>399</span></em>
+            </h1>
             <p className="hero-lead enter delay-2">Landing pages e sites profissionais que organizam sua mensagem, valorizam seu negócio e transformam visitas em oportunidades.</p>
             <div className="hero-actions enter delay-3"><a className="button button-primary" href="#orcamento">Quero meu projeto <Arrow /></a><a className="button button-ghost" href={whatsappLink} target="_blank" rel="noopener noreferrer">Falar com a K7 <Arrow diagonal /></a></div>
             <ul className="hero-benefits enter delay-4"><li><Check /> SEO preparado</li><li><Check /> Foco em conversão</li><li><Check /> Site otimizado</li></ul>
