@@ -278,10 +278,10 @@ ${field("mensagem")}`;
         <div className="container hero-layout" id="conteudo">
           <div className="hero-copy">
             <p className="eyebrow enter"><span /> SITES CRIADOS PARA POSICIONAR E CONVERTER</p>
-            <h1 className="enter delay-1">Criação de sites e landing pages profissionais <em>A partir de R$ 399,00.</em></h1>
+            <h1 className="enter delay-1">Criação de sites e landing pages profissionais A partir de <em>R$ 399,00.</em></h1>
             <p className="hero-lead enter delay-2">Landing pages e sites profissionais que organizam sua mensagem, valorizam seu negócio e transformam visitas em oportunidades.</p>
-            <div className="hero-actions enter delay-3"><a className="button button-primary" href="#orcamento">Quero meu projeto <Arrow /></a><a className="button button-ghost" href="#orcamento">Falar com a K7 <Arrow diagonal /></a></div>
-            <ul className="hero-benefits enter delay-4"><li><Check /> Design exclusivo</li><li><Check /> Responsivo</li><li><Check /> Suporte próximo</li></ul>
+            <div className="hero-actions enter delay-3"><a className="button button-primary" href="#orcamento">Quero meu projeto <Arrow /></a><a className="button button-ghost" href={whatsappLink} target="_blank" rel="noopener noreferrer">Falar com a K7 <Arrow diagonal /></a></div>
+            <ul className="hero-benefits enter delay-4"><li><Check /> SEO preparado</li><li><Check /> Foco em conversão</li><li><Check /> Site otimizado</li></ul>
           </div>
           <div className="hero-art enter delay-2" aria-label="Representação de um site criado pela K7 Sites">
             <div className="orbit orbit-one"><span /></div><div className="orbit orbit-two"><span /></div>
