@@ -13,6 +13,19 @@ const heroTitleWords = [
   { text: "A" }, { text: "partir" }, { text: "de" }, { text: "R$", accent: true }, { text: "399", accent: true },
 ];
 
+const technologies = [
+  { name: "Google", icon: "/technologies/google.svg" },
+  { name: "Vercel", icon: "/technologies/vercel.svg" },
+  { name: "Figma", icon: "/technologies/figma.svg" },
+  { name: "JavaScript", icon: "/technologies/javascript.svg" },
+  { name: "TypeScript", icon: "/technologies/typescript.svg" },
+  { name: "CSS", icon: "/technologies/css.svg" },
+  { name: "Node.js", icon: "/technologies/nodejs.svg" },
+  { name: "Visual Studio Code", icon: "/technologies/visual-studio-code.svg" },
+  { name: "Next.js", icon: "/technologies/nextjs.svg" },
+  { name: "PHP", icon: "/technologies/php.svg" },
+];
+
 const services = [
   { number: "01", title: "Landing pages", text: "Páginas focadas em uma oferta, com copy estratégica, estrutura persuasiva e chamadas para ação bem posicionadas.", tag: "Campanhas e lançamentos" },
   { number: "02", title: "Sites institucionais", text: "Uma presença digital completa para apresentar sua empresa, serviços, diferenciais e canais de contato com profissionalismo.", tag: "Autoridade e confiança" },
@@ -363,6 +376,31 @@ ${field("mensagem")}`;
         <div className="section-heading centered reveal"><p className="eyebrow"><span /> SOBRE A K7 SITES</p><h2>Não é só montar páginas. É <em>dar forma à sua proposta.</em></h2><p>A K7 Sites cria experiências digitais para profissionais e empresas que querem apresentar seu trabalho com mais clareza, confiança e personalidade.</p></div>
         <div className="about-layout"><div className="about-art reveal"><div className="metal-k">K<span>7</span></div><div className="about-caption"><b>Design com intenção.</b><span>Construção com cuidado.</span></div></div>
         <div className="about-copy reveal"><p>Cada projeto combina organização de conteúdo, direção visual e desenvolvimento responsivo — sem soluções genéricas que apagam o que torna sua marca única.</p><div className="principles"><div><strong>01</strong><span><b>Clareza antes de efeito</b>Todo elemento precisa ajudar a mensagem.</span></div><div><strong>02</strong><span><b>Visual com personalidade</b>Identidade que combina com seu posicionamento.</span></div><div><strong>03</strong><span><b>Parceria próxima</b>Comunicação simples durante todo o projeto.</span></div></div></div></div>
+      </div></section>
+
+      <section className="section specialist" aria-labelledby="specialist-title"><div className="container">
+        <div className="section-heading centered reveal"><h2 id="specialist-title">Quem irá cuidar do seu <em>projeto.</em></h2></div>
+        <div className="specialist-grid">
+          <article className="specialist-main-card reveal">
+            <div className="specialist-card-art" aria-hidden="true" />
+            <div className="specialist-profile">
+              <div className="specialist-avatar"><Image src="/kassio-kennedy/kassio-kennedy-perfil.jpg" alt="Retrato de Kassio Kennedy" fill sizes="128px" quality={90} /></div>
+              <div><h3>Kassio Kennedy</h3><p>Engenharia de software, estratégia e design unidos para criar experiências digitais de alto nível.</p></div>
+            </div>
+            <div className="specialist-technologies">
+              <h3>Tecnologias que fazem parte de cada projeto</h3>
+              <ul>{technologies.map((technology) => <li key={technology.name} title={technology.name}><Image src={technology.icon} alt="" width={30} height={30} aria-hidden="true" /><span>{technology.name}</span></li>)}</ul>
+            </div>
+          </article>
+          <article className="specialist-photo-card reveal">
+            <Image src="/kassio-kennedy/kassio-kennedy-desenvolvimento.jpg" alt="Kassio Kennedy em seu espaço de trabalho com um notebook" fill sizes="(max-width: 860px) 100vw, 390px" quality={90} />
+            <div className="specialist-photo-copy"><h3>Desenvolvimento Web</h3><div><span aria-label="5 de 5 estrelas">★★★★★</span><small>+200 projetos</small></div></div>
+          </article>
+        </div>
+        <div className="specialist-intro reveal">
+          <p>Sou Kassio Kennedy, formado em <em>Engenharia de Software</em> e atuo no desenvolvimento de soluções digitais completas, unindo conhecimentos de front-end e back-end. Por meio da K7 Sites, ajudo empresas e profissionais a fortalecer sua presença digital com <em>sites rápidos, responsivos e otimizados para o Google</em>, desenvolvidos para transmitir credibilidade e transformar visitas em novas oportunidades de negócio.</p>
+          <p>Cada projeto é planejado com atenção ao <em>desempenho</em>, à experiência do usuário e aos objetivos reais de cada empresa.</p>
+        </div>
       </div></section>
 
       <section className="section proof" id="depoimentos"><div className="container">

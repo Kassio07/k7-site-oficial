@@ -51,11 +51,15 @@ export function SitePreloader() {
       document.body.style.paddingRight = previousPaddingRight;
     };
 
-    setVisible(true);
+    const visibilityFrame = requestAnimationFrame(() => {
+      setVisible(true);
+      if (reducedMotion) {
+        setProgress(100);
+        setComplete(true);
+      }
+    });
 
     if (reducedMotion) {
-      setProgress(100);
-      setComplete(true);
       const exitTimer = window.setTimeout(() => {
         revealSite();
         setExiting(true);
@@ -66,6 +70,7 @@ export function SitePreloader() {
       }, 280);
 
       return () => {
+        cancelAnimationFrame(visibilityFrame);
         window.clearTimeout(exitTimer);
         window.clearTimeout(removeTimer);
         restoreScrollRef.current();
@@ -129,6 +134,7 @@ export function SitePreloader() {
     frame = requestAnimationFrame(animate);
 
     return () => {
+      cancelAnimationFrame(visibilityFrame);
       cancelAnimationFrame(frame);
       window.clearTimeout(exitTimer);
       window.clearTimeout(removeTimer);
