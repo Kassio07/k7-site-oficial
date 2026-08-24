@@ -69,6 +69,18 @@ const nicheProjects = [
 
 const testimonials = [
   {
+    name: "Kaique Júnior macedo",
+    details: "Local Guide • 2 avaliações • 40 fotos",
+    date: "Há 33 minutos",
+    text: "Excelente experiência, criaram o site da minha lavanderia . Ótimos profissionais, só tenho a agradecer, Deus abençoe vocês",
+  },
+  {
+    name: "Kaio Santos",
+    details: "7 avaliações",
+    date: "Uma hora atrás",
+    text: "Excelente experiência com a K7 Sites! Desde o primeiro contato, demonstraram profissionalismo, atenção aos detalhes e muita dedicação para entregar um resultado de qualidade. O atendimento foi muito bom e o trabalho superou minhas expectativas. Dá para perceber o cuidado e o compromisso em cada etapa. Recomendo muito para quem procura um serviço profissional, confiável e de qualidade!",
+  },
+  {
     name: "Beatriz Araújo",
     details: "3 avaliações • 0 foto",
     date: "Há 6 dias",
@@ -101,6 +113,81 @@ const faqs = [
 const Arrow = ({ diagonal = false }: { diagonal?: boolean }) => (
   <svg aria-hidden="true" viewBox="0 0 24 24" fill="none"><path d={diagonal ? "M7 17 17 7M8 7h9v9" : "M5 12h14M14 7l5 5-5 5"} stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>
 );
+
+function TestimonialsSlider() {
+  const viewportRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [pageCount, setPageCount] = useState(Math.max(1, testimonials.length - 2));
+
+  const getCards = () => Array.from(viewportRef.current?.querySelectorAll<HTMLElement>(".testimonial-card") ?? []);
+
+  const goTo = (index: number) => {
+    const viewport = viewportRef.current;
+    const cards = getCards();
+    if (!viewport || !cards.length) return;
+
+    const nextIndex = Math.max(0, Math.min(index, pageCount - 1));
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    viewport.scrollTo({ left: cards[nextIndex].offsetLeft - cards[0].offsetLeft, behavior: reducedMotion ? "auto" : "smooth" });
+    setActiveIndex(nextIndex);
+  };
+
+  useEffect(() => {
+    const viewport = viewportRef.current;
+    if (!viewport) return;
+
+    const updateLayout = () => {
+      const cards = getCards();
+      if (!cards.length) return;
+      const visibleCards = Math.max(1, Math.round(viewport.clientWidth / cards[0].offsetWidth));
+      const nextPageCount = Math.max(1, testimonials.length - visibleCards + 1);
+      setPageCount(nextPageCount);
+      setActiveIndex((current) => Math.min(current, nextPageCount - 1));
+    };
+
+    const initialFrame = requestAnimationFrame(updateLayout);
+    const observer = new ResizeObserver(updateLayout);
+    observer.observe(viewport);
+
+    return () => {
+      cancelAnimationFrame(initialFrame);
+      observer.disconnect();
+    };
+  }, []);
+
+  const handleScroll = () => {
+    const viewport = viewportRef.current;
+    const cards = getCards();
+    if (!viewport || cards.length < 2) return;
+    const step = cards[1].offsetLeft - cards[0].offsetLeft;
+    setActiveIndex(Math.min(pageCount - 1, Math.max(0, Math.round(viewport.scrollLeft / step))));
+  };
+
+  return (
+    <div className="testimonial-slider reveal" role="region" aria-roledescription="carrossel" aria-label="Avaliações de clientes da K7 Sites">
+      <div className="testimonial-slider-topbar">
+        <p aria-live="polite">Exibindo grupo {activeIndex + 1} de {pageCount}</p>
+        <div className="testimonial-arrows">
+          <button type="button" onClick={() => goTo(activeIndex - 1)} disabled={activeIndex === 0} aria-label="Ver avaliações anteriores"><Arrow /></button>
+          <button type="button" onClick={() => goTo(activeIndex + 1)} disabled={activeIndex === pageCount - 1} aria-label="Ver próximas avaliações"><Arrow /></button>
+        </div>
+      </div>
+      <div className="testimonial-viewport" ref={viewportRef} onScroll={handleScroll}>
+        <div className="testimonial-track">
+          {testimonials.map((testimonial, index) => <article className="testimonial-card" key={testimonial.name} aria-label={`Avaliação ${index + 1} de ${testimonials.length}`}>
+            <div className="testimonial-rating"><span aria-label="5 de 5 estrelas">★★★★★</span><small>5,0 • GOOGLE</small></div>
+            <blockquote><p>{testimonial.text}</p></blockquote>
+            <footer><div><a href={googleReviewsLink} target="_blank" rel="noopener noreferrer" aria-label={`Ver avaliações da K7 Sites no Google — avaliação de ${testimonial.name}`}>{testimonial.name} <Arrow diagonal /></a><span>{testimonial.details}</span></div><small>{testimonial.date}</small></footer>
+          </article>)}
+        </div>
+      </div>
+      <div className="testimonial-dots" aria-label="Escolher grupo de avaliações">
+        {Array.from({ length: pageCount }).map((_, index) => <button type="button" key={index} className={index === activeIndex ? "is-active" : ""} onClick={() => goTo(index)} aria-label={`Ir para o grupo ${index + 1} de avaliações`} aria-current={index === activeIndex ? "true" : undefined} />)}
+      </div>
+      <a className="testimonial-google-link" href={googleReviewsLink} target="_blank" rel="noopener noreferrer" aria-label="Ver todas as avaliações da K7 Sites no Google">Ver avaliações no Google <Arrow diagonal /></a>
+    </div>
+  );
+}
 
 const Check = () => <span className="check" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none"><path d="m5 10.2 3.1 3.1L15.5 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg></span>;
 
@@ -405,11 +492,7 @@ ${field("mensagem")}`;
 
       <section className="section proof" id="depoimentos"><div className="container">
         <div className="section-heading centered reveal"><p className="eyebrow dark"><span /> AVALIAÇÕES NO GOOGLE</p><h2>A confiança cresce quando clientes reais <em>contam a experiência.</em></h2><p>Veja o que clientes da K7 Sites publicaram sobre seus projetos no Google.</p></div>
-        <div className="testimonial-grid">{testimonials.map((testimonial) => <article className="testimonial-card reveal" key={testimonial.name}>
-          <div className="testimonial-rating"><span aria-label="5 de 5 estrelas">★★★★★</span><small>5,0 • GOOGLE</small></div>
-          <blockquote><p>{testimonial.text}</p></blockquote>
-          <footer><div><a href={googleReviewsLink} target="_blank" rel="noreferrer" aria-label={`Conferir a avaliação de ${testimonial.name} no perfil da K7 Sites no Google`}>{testimonial.name} <Arrow diagonal /></a><span>{testimonial.details}</span></div><small>{testimonial.date}</small></footer>
-        </article>)}</div>
+        <TestimonialsSlider />
       </div></section>
 
       <section className="section pricing" id="investimento"><div className="pricing-rockets" aria-hidden="true">{Array.from({ length: 12 }).map((_, index) => <span key={index}>🚀</span>)}</div><div className="container">
