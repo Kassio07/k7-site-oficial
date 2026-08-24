@@ -69,6 +69,18 @@ const nicheProjects = [
 
 const testimonials = [
   {
+    name: "Gabriel Rodrigues Da Luz",
+    details: "0 avaliação • 0 foto",
+    date: "Há 7 minutos",
+    text: "Excelente trabalho, atendeu a demanda e me deu sugestões que foram eficazes no meu negócio",
+  },
+  {
+    name: "Alexandre Do Nascimento Ribeiro Pizatto",
+    details: "2 avaliações • 0 foto",
+    date: "Há 20 minutos",
+    text: "Se pudesse dava nota 1000 pra vocês! superaram minhas expectativas em todos sentidos, custei pra achar mas finalmente achei uma empresa seria!! Sucesso sempre.",
+  },
+  {
     name: "Kaique Júnior macedo",
     details: "Local Guide • 2 avaliações • 40 fotos",
     date: "Há 33 minutos",
@@ -175,7 +187,7 @@ function TestimonialsSlider() {
       <div className="testimonial-viewport" ref={viewportRef} onScroll={handleScroll}>
         <div className="testimonial-track">
           {testimonials.map((testimonial, index) => <article className="testimonial-card" key={testimonial.name} aria-label={`Avaliação ${index + 1} de ${testimonials.length}`}>
-            <div className="testimonial-rating"><span aria-label="5 de 5 estrelas">★★★★★</span><small>5,0 • GOOGLE</small></div>
+            <div className="testimonial-rating"><span aria-label="5 de 5 estrelas">★★★★★</span><div className="testimonial-google-score"><Image src="/technologies/google.svg" alt="Google" width={24} height={24} /><small>5.0</small></div></div>
             <blockquote><p>{testimonial.text}</p></blockquote>
             <footer><div><a href={googleReviewsLink} target="_blank" rel="noopener noreferrer" aria-label={`Ver avaliações da K7 Sites no Google — avaliação de ${testimonial.name}`}>{testimonial.name} <Arrow diagonal /></a><span>{testimonial.details}</span></div><small>{testimonial.date}</small></footer>
           </article>)}
