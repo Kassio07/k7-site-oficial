@@ -271,7 +271,7 @@ ${field("mensagem")}`;
       </div></div>
 
       <header className="site-header">
-        <a className="brand" href="#inicio" aria-label="K7 Sites — início"><Image src="/k7-preloader-logo.png" alt="K7 Sites" width={88} height={58} priority /></a>
+        <a className="brand header-brand" href="#inicio" aria-label="K7 Sites — início"><Image src="/k7-preloader-logo.png" alt="K7 Sites" width={72} height={72} priority /></a>
         <nav className={menuOpen ? "nav is-open" : "nav"} aria-label="Navegação principal">
           <a href="#servicos" onClick={() => setMenuOpen(false)}>Serviços</a><a href="#projetos" onClick={() => setMenuOpen(false)}>Projetos</a><a href="#processo" onClick={() => setMenuOpen(false)}>Processo</a><a href="#sobre" onClick={() => setMenuOpen(false)}>Sobre</a><a href="#faq" onClick={() => setMenuOpen(false)}>Dúvidas</a><a className="nav-mobile-cta" href="#orcamento" onClick={() => setMenuOpen(false)}>Pedir orçamento</a>
         </nav>
