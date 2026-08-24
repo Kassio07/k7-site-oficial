@@ -130,7 +130,7 @@ export function SitePreloader() {
       <div className="site-preloader-glow" aria-hidden="true" />
       <div className="site-preloader-content">
         <div className="site-preloader-logo">
-          <Image src="/k7-logo.png" alt="K7 Sites" width={132} height={132} priority />
+          <Image src="/k7-preloader-logo.png" alt="K7 Sites" width={190} height={196} priority />
         </div>
         <strong aria-hidden="true">{progress}%</strong>
         <div className="site-preloader-track" aria-hidden="true">
