@@ -271,7 +271,7 @@ ${field("mensagem")}`;
       </div></div>
 
       <header className="site-header">
-        <a className="brand header-brand" href="#inicio" aria-label="K7 Sites — início"><Image src="/k7-preloader-logo.png" alt="K7 Sites" width={72} height={72} priority /></a>
+        <a className="brand header-brand" href="#inicio" aria-label="K7 Sites — início"><Image src="/k7-preloader-logo.png" alt="K7 Sites" width={84} height={87} priority /></a>
         <nav className={menuOpen ? "nav is-open" : "nav"} aria-label="Navegação principal">
           <a href="#servicos" onClick={() => setMenuOpen(false)}>Serviços</a><a href="#projetos" onClick={() => setMenuOpen(false)}>Projetos</a><a href="#processo" onClick={() => setMenuOpen(false)}>Processo</a><a href="#sobre" onClick={() => setMenuOpen(false)}>Sobre</a><a href="#faq" onClick={() => setMenuOpen(false)}>Dúvidas</a><a className="nav-mobile-cta" href="#orcamento" onClick={() => setMenuOpen(false)}>Pedir orçamento</a>
         </nav>
@@ -411,7 +411,7 @@ ${field("mensagem")}`;
       <section className="final-cta"><div className="container"><div className="final-cta-card reveal"><div className="final-orbit" aria-hidden="true" /><div className="final-cta-content"><div className="mini-logo"><Image src="/k7-logo.png" alt="K7 Sites" width={70} height={70} /></div><p>SEU PRÓXIMO SITE PODE COMEÇAR AGORA</p><h2>Transforme sua presença digital em uma apresentação à altura do seu trabalho.</h2><a className="button button-light" href="#orcamento">Solicitar orçamento <Arrow /></a></div></div></div></section>
 
       <footer className="footer"><div className="container footer-main">
-        <div><a className="brand footer-brand" href="#inicio"><Image src="/k7-logo.png" alt="K7 Sites" width={112} height={72} /></a><p>Sites e landing pages com estratégia, identidade e acabamento profissional.</p></div>
+        <div><a className="brand footer-brand" href="#inicio"><Image src="/k7-preloader-logo.png" alt="K7 Sites" width={104} height={108} /></a><p>Sites e landing pages com estratégia, identidade e acabamento profissional.</p></div>
         <div><small>NAVEGAÇÃO</small><a href="#servicos">Serviços</a><a href="#projetos">Projetos</a><a href="#processo">Processo</a><a href="#sobre">Sobre</a></div>
         <div><small>CONTATO</small><a href="mailto:k7sites@gmail.com">k7sites@gmail.com</a><a href={whatsappLink} target="_blank" rel="noreferrer">WhatsApp: (11) 94921-4071</a></div>
         <div><small>PRONTO PARA COMEÇAR?</small><a className="footer-cta" href="#orcamento">Pedir orçamento <Arrow diagonal /></a></div>
