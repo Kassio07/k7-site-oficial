@@ -209,6 +209,7 @@ export default function Home() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [formStep, setFormStep] = useState(1);
   const [sent, setSent] = useState(false);
+  const [submittedWhatsappLink, setSubmittedWhatsappLink] = useState(whatsappLink);
   const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
@@ -229,7 +230,28 @@ export default function Home() {
     if (inputs.every((input) => input.reportValidity())) setFormStep((step) => Math.min(3, step + 1));
   };
 
-  const submitForm = (event: FormEvent<HTMLFormElement>) => { event.preventDefault(); setSent(true); };
+  const submitForm = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    const field = (name: string) => String(formData.get(name) ?? "");
+    const message = `Olá! Vim pelo site da K7 Sites e gostaria de solicitar um orçamento.
+
+Nome: ${field("nome")}
+WhatsApp: ${field("telefone")}
+E-mail: ${field("email")}
+Tipo de projeto: ${field("projeto")}
+Objetivo: ${field("objetivo")}
+Instagram ou site: ${field("site")}
+Quando deseja começar: ${field("prazo")}
+
+Sobre a empresa e o projeto:
+${field("mensagem")}`;
+    const formWhatsappLink = `https://wa.me/5511949214071?text=${encodeURIComponent(message)}`;
+
+    setSubmittedWhatsappLink(formWhatsappLink);
+    setSent(true);
+    window.open(formWhatsappLink, "_blank", "noopener,noreferrer");
+  };
 
   return (
     <main>
@@ -368,8 +390,8 @@ export default function Home() {
             <div className={formStep === 1 ? "form-pane active" : "form-pane"} data-step="1"><h3>Olá! Vamos começar pelos seus dados?</h3><label>Qual é o seu nome?<input name="nome" required placeholder="Digite seu nome" /></label><label>Qual é o seu WhatsApp para contato?<input name="telefone" type="tel" required placeholder="(11) 99999-9999" /></label><label>Qual é o melhor e-mail para receber a confirmação?<input name="email" type="email" required placeholder="voce@empresa.com.br" /></label></div>
             <div className={formStep === 2 ? "form-pane active" : "form-pane"} data-step="2"><h3>Agora, conte sobre o seu projeto.</h3><label>Qual tipo de projeto você precisa?<select name="projeto" required defaultValue=""><option value="" disabled>Selecione uma opção</option><option>Landing page</option><option>Site institucional</option><option>Página de vendas</option><option>Site para cursos</option><option>Redesign</option><option>Outro</option></select></label><label>Qual é o principal objetivo?<select name="objetivo" required defaultValue=""><option value="" disabled>Selecione uma opção</option><option>Gerar contatos</option><option>Vender uma oferta</option><option>Apresentar a empresa</option><option>Lançar um produto</option><option>Atualizar o site atual</option></select></label><label>Qual é o Instagram ou site da sua empresa?<input name="site" placeholder="@suaempresa ou www.suaempresa.com.br" /></label></div>
             <div className={formStep === 3 ? "form-pane active" : "form-pane"} data-step="3"><h3>Para finalizar, mais dois detalhes.</h3><label>Quando você deseja começar?<select name="prazo" required defaultValue=""><option value="" disabled>Selecione uma opção</option><option>O quanto antes</option><option>Em até 30 dias</option><option>Em 1 a 3 meses</option><option>Ainda estou planejando</option></select></label><label>Me conte um pouco sobre sua empresa e o projeto.<textarea name="mensagem" rows={5} required placeholder="O que você vende, para quem e qual resultado espera?" /></label></div>
-            <div className="form-actions">{formStep > 1 && <button className="button button-ghost" type="button" onClick={() => setFormStep(formStep - 1)}>Voltar</button>}{formStep < 3 ? <button className="button button-primary" type="button" onClick={nextStep}>Continuar <Arrow /></button> : <button className="button button-primary" type="submit">Revisar solicitação <Arrow /></button>}</div>
-          </form> : <div className="form-success"><span><Check /></span><small>FORMULÁRIO VALIDADO</small><h3>As informações estão prontas.</h3><p>Agora fale com a K7 Sites pelo WhatsApp para continuar seu atendimento.</p><a className="button button-primary" href={whatsappLink} target="_blank" rel="noreferrer">Continuar no WhatsApp <Arrow /></a><button type="button" onClick={() => { setSent(false); setFormStep(1); }}>Preencher novamente</button></div>}</div>
+            <div className="form-actions">{formStep > 1 && <button className="button button-ghost" type="button" onClick={() => setFormStep(formStep - 1)}>Voltar</button>}{formStep < 3 ? <button className="button button-primary" type="button" onClick={nextStep}>Continuar <Arrow /></button> : <button className="button button-primary" type="submit">Enviar pelo WhatsApp <Arrow /></button>}</div>
+          </form> : <div className="form-success"><span><Check /></span><small>FORMULÁRIO VALIDADO</small><h3>As informações estão prontas.</h3><p>O WhatsApp foi aberto em uma nova aba. Se ela foi bloqueada, use o link abaixo para continuar.</p><a className="button button-primary" href={submittedWhatsappLink} target="_blank" rel="noopener noreferrer">Continuar no WhatsApp <Arrow /></a><button type="button" onClick={() => { setSent(false); setFormStep(1); }}>Preencher novamente</button></div>}</div>
         </div>
       </div></section>
 
