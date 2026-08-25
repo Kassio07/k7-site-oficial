@@ -325,10 +325,8 @@ function CounterStat({ value, suffix, label }: { value: number; suffix: string; 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
-  const [formStep, setFormStep] = useState(1);
   const [sent, setSent] = useState(false);
   const [submittedWhatsappLink, setSubmittedWhatsappLink] = useState(whatsappLink);
-  const formRef = useRef<HTMLFormElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => entries.forEach((entry) => entry.isIntersecting && entry.target.classList.add("is-visible")), { threshold: 0.12 });
@@ -342,12 +340,6 @@ export default function Home() {
     return () => { observer.disconnect(); window.removeEventListener("scroll", updateProgress); };
   }, []);
 
-  const nextStep = () => {
-    const pane = formRef.current?.querySelector(`[data-step="${formStep}"]`);
-    const inputs = Array.from(pane?.querySelectorAll<HTMLInputElement | HTMLSelectElement>("input, select") ?? []);
-    if (inputs.every((input) => input.reportValidity())) setFormStep((step) => Math.min(3, step + 1));
-  };
-
   const submitForm = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
@@ -355,12 +347,9 @@ export default function Home() {
     const message = `Olá! Vim pelo site da K7 Sites e gostaria de solicitar um orçamento.
 
 Nome: ${field("nome")}
-WhatsApp: ${field("telefone")}
 E-mail: ${field("email")}
 Tipo de projeto: ${field("projeto")}
 Objetivo: ${field("objetivo")}
-Instagram ou site: ${field("site")}
-Quando deseja começar: ${field("prazo")}
 
 Sobre a empresa e o projeto:
 ${field("mensagem")}`;
@@ -466,7 +455,6 @@ ${field("mensagem")}`;
       <section className="section projects" id="projetos"><div className="container">
         <div className="section-heading split reveal"><div><p className="eyebrow dark"><span /> ESTRUTURAS QUE INSPIRAM</p><h2>Cada projeto nasce de uma <em>necessidade real.</em></h2></div><p>Explore mockups profissionais criados para diferentes nichos, objetivos e públicos — sempre com uma apresentação única.</p></div>
         <div className="project-grid">{projects.map((project) => <article className="project-card reveal" key={project.title}><div className="project-screen real-project"><div className="project-browser"><i /><i /><i /><span>projeto demonstrativo K7 Sites</span></div>{project.theme === "barber" ? <Image src={project.src} alt="Mockup completo da Barbearia Mestre" fill sizes="(max-width: 860px) 100vw, 50vw" /> : <ProjectMockup project={project} />}</div><div className="project-meta"><div><small>{project.type}</small><h3>{project.title}</h3><p>{project.note}</p></div><i><Arrow diagonal /></i></div></article>)}</div>
-        <p className="project-disclaimer"><strong>Portfólio demonstrativo:</strong> exceto a barbearia já existente, as marcas, endereços, registros, preços e demais dados apresentados nos mockups são fictícios.</p>
       </div></section>
 
       <section className="conversion-block"><div className="container"><div className="conversion-card reveal"><div className="conversion-grid" aria-hidden="true" /><div className="conversion-layout"><div><p className="eyebrow"><span /> SUA PRÓXIMA FASE PODE COMEÇAR AQUI</p><h2>Você já entrega um bom trabalho. Seu site precisa <em>mostrar isso.</em></h2></div><div><p>Conte o que você precisa e receba uma orientação sobre o formato mais adequado para o seu momento.</p><a className="button button-light" href="#orcamento">Falar sobre meu projeto <Arrow /></a></div></div></div></div></section>
@@ -523,21 +511,17 @@ ${field("mensagem")}`;
       </div></section>
 
       <section className="section contact" id="orcamento"><div className="contact-glow" aria-hidden="true" /><div className="container">
-        <div className="section-heading centered contact-heading reveal"><p className="eyebrow"><span /> VAMOS CONVERSAR</p><h2>Vamos desenvolver a solução certa para <em>sua empresa.</em></h2><p>Conte um pouco sobre o seu negócio em três etapas rápidas. Depois, a K7 entra em contato para orientar o melhor formato.</p></div>
+        <div className="section-heading centered contact-heading reveal"><p className="eyebrow"><span /> VAMOS CONVERSAR</p><h2>Vamos desenvolver a solução certa para <em>sua empresa.</em></h2><p>Conte um pouco sobre o seu negócio em um briefing rápido. Depois, a K7 entra em contato para orientar o melhor formato.</p></div>
         <div className="contact-layout">
           <aside className="contact-panel reveal">
             <div className="contact-brand"><Image src="/k7-logo.png" alt="K7 Sites" width={70} height={70} /><div><b>K7 Sites</b><span>Sites que posicionam e convertem</span></div></div>
-            <p className="contact-kicker">ORÇAMENTO EM 3 ETAPAS</p><h3>Seu próximo projeto começa com uma conversa clara.</h3><p>Preencha o briefing rápido. Assim conseguimos entender seu momento antes do primeiro contato.</p>
-            <div className="contact-step-list">{[[1, "Conte sobre o negócio", "Seus dados de contato"], [2, "Detalhes do projeto", "Objetivo e formato"], [3, "Entraremos em contato", "Revise e envie"]].map(([step, title, text]) => <div className={formStep === step ? "active" : formStep > Number(step) ? "done" : ""} key={step}><span>{step}</span><p><b>{title}</b><small>{text}</small></p></div>)}</div>
+            <p className="contact-kicker">ORÇAMENTO SIMPLES</p><h3>Seu próximo projeto começa com uma conversa clara.</h3><p>Preencha o briefing rápido. Assim conseguimos entender seu momento antes do primeiro contato.</p>
             <div className="contact-direct"><small>PREFERE FALAR AGORA?</small><a className="whatsapp-direct" href={whatsappLink} target="_blank" rel="noreferrer">WhatsApp: (11) 94921-4071 <Arrow diagonal /></a></div>
           </aside>
-          <div className="form-shell reveal">{!sent ? <form ref={formRef} onSubmit={submitForm}>
-            <div className="form-head"><div className="form-progress">{[1, 2, 3].map((step) => <span className={formStep >= step ? "active" : ""} key={step} />)}</div><small>ETAPA {formStep} DE 3</small></div>
-            <div className={formStep === 1 ? "form-pane active" : "form-pane"} data-step="1"><h3>Olá! Vamos começar pelos seus dados?</h3><label>Qual é o seu nome?<input name="nome" required placeholder="Digite seu nome" /></label><label>Qual é o seu WhatsApp para contato?<input name="telefone" type="tel" required placeholder="(11) 99999-9999" /></label><label>Qual é o melhor e-mail para receber a confirmação?<input name="email" type="email" required placeholder="voce@empresa.com.br" /></label></div>
-            <div className={formStep === 2 ? "form-pane active" : "form-pane"} data-step="2"><h3>Agora, conte sobre o seu projeto.</h3><label>Qual tipo de projeto você precisa?<select name="projeto" required defaultValue=""><option value="" disabled>Selecione uma opção</option><option>Landing page</option><option>Site institucional</option><option>Página de vendas</option><option>Site para cursos</option><option>Redesign</option><option>Outro</option></select></label><label>Qual é o principal objetivo?<select name="objetivo" required defaultValue=""><option value="" disabled>Selecione uma opção</option><option>Gerar contatos</option><option>Vender uma oferta</option><option>Apresentar a empresa</option><option>Lançar um produto</option><option>Atualizar o site atual</option></select></label><label>Qual é o Instagram ou site da sua empresa?<input name="site" placeholder="@suaempresa ou www.suaempresa.com.br" /></label></div>
-            <div className={formStep === 3 ? "form-pane active" : "form-pane"} data-step="3"><h3>Para finalizar, mais dois detalhes.</h3><label>Quando você deseja começar?<select name="prazo" required defaultValue=""><option value="" disabled>Selecione uma opção</option><option>O quanto antes</option><option>Em até 30 dias</option><option>Em 1 a 3 meses</option><option>Ainda estou planejando</option></select></label><label>Me conte um pouco sobre sua empresa e o projeto.<textarea name="mensagem" rows={5} required placeholder="O que você vende, para quem e qual resultado espera?" /></label></div>
-            <div className="form-actions">{formStep > 1 && <button className="button button-ghost" type="button" onClick={() => setFormStep(formStep - 1)}>Voltar</button>}{formStep < 3 ? <button className="button button-primary" type="button" onClick={nextStep}>Continuar <Arrow /></button> : <button className="button button-primary" type="submit">Enviar pelo WhatsApp <Arrow /></button>}</div>
-          </form> : <div className="form-success"><span><Check /></span><small>FORMULÁRIO VALIDADO</small><h3>As informações estão prontas.</h3><p>O WhatsApp foi aberto em uma nova aba. Se ela foi bloqueada, use o link abaixo para continuar.</p><a className="button button-primary" href={submittedWhatsappLink} target="_blank" rel="noopener noreferrer">Continuar no WhatsApp <Arrow /></a><button type="button" onClick={() => { setSent(false); setFormStep(1); }}>Preencher novamente</button></div>}</div>
+          <div className="form-shell reveal">{!sent ? <form onSubmit={submitForm}>
+            <div className="form-pane active"><h3>Conte sobre o seu projeto.</h3><label>Qual é o seu nome?<input name="nome" required placeholder="Digite seu nome" /></label><label>Qual é o melhor e-mail?<input name="email" type="email" required placeholder="voce@empresa.com.br" /></label><label>Qual tipo de projeto você precisa?<select name="projeto" required defaultValue=""><option value="" disabled>Selecione uma opção</option><option>Landing page</option><option>Site institucional</option><option>Página de vendas</option><option>Site para cursos</option><option>Redesign</option><option>Outro</option></select></label><label>Qual é o principal objetivo?<select name="objetivo" required defaultValue=""><option value="" disabled>Selecione uma opção</option><option>Gerar contatos</option><option>Vender uma oferta</option><option>Apresentar a empresa</option><option>Lançar um produto</option><option>Atualizar o site atual</option></select></label><label>Me conte um pouco sobre sua empresa e o projeto.<textarea name="mensagem" rows={5} required placeholder="O que você vende, para quem e qual resultado espera?" /></label></div>
+            <div className="form-actions"><button className="button button-primary" type="submit">Enviar pelo WhatsApp <Arrow /></button></div>
+          </form> : <div className="form-success"><span><Check /></span><small>FORMULÁRIO VALIDADO</small><h3>As informações estão prontas.</h3><p>O WhatsApp foi aberto em uma nova aba. Se ela foi bloqueada, use o link abaixo para continuar.</p><a className="button button-primary" href={submittedWhatsappLink} target="_blank" rel="noopener noreferrer">Continuar no WhatsApp <Arrow /></a><button type="button" onClick={() => setSent(false)}>Preencher novamente</button></div>}</div>
         </div>
       </div></section>
 
