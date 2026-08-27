@@ -4,6 +4,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
       url: "https://www.k7sites.com.br/",
+      changeFrequency: "monthly",
+      priority: 1,
     },
   ];
 }

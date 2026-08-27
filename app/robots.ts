@@ -7,5 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
     },
     sitemap: "https://www.k7sites.com.br/sitemap.xml",
+    host: "https://www.k7sites.com.br",
   };
 }
