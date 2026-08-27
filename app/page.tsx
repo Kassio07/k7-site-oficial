@@ -4,6 +4,7 @@ import Image from "next/image";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { ImageStream } from "@/components/ui/image-stream";
 import { SitePreloader } from "@/components/site-preloader";
+import { trackEvent } from "@/lib/analytics";
 
 const whatsappLink = "https://wa.me/5511949214071?text=Ol%C3%A1%21%20Vim%20pelo%20site%20da%20K7%20Sites%20e%20gostaria%20de%20pedir%20um%20or%C3%A7amento.";
 const googleReviewsLink = "https://share.google/pDIhvdTpTxOyWEIOe";
@@ -328,6 +329,17 @@ export default function Home() {
   const [sent, setSent] = useState(false);
   const [submittedWhatsappLink, setSubmittedWhatsappLink] = useState(whatsappLink);
 
+  const trackWhatsAppClick = (
+    buttonLocation: "hero" | "header" | "portfolio" | "final_cta" | "floating_button",
+    linkText: string,
+  ) => {
+    trackEvent("click_whatsapp", {
+      button_location: buttonLocation,
+      page_path: window.location.pathname,
+      link_text: linkText,
+    });
+  };
+
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => entries.forEach((entry) => entry.isIntersecting && entry.target.classList.add("is-visible")), { threshold: 0.12 });
     document.querySelectorAll(".reveal").forEach((node) => observer.observe(node));
@@ -357,6 +369,7 @@ ${field("mensagem")}`;
 
     setSubmittedWhatsappLink(formWhatsappLink);
     setSent(true);
+    trackWhatsAppClick("final_cta", "Enviar pelo WhatsApp");
     window.open(formWhatsappLink, "_blank", "noopener,noreferrer");
   };
 
@@ -380,7 +393,7 @@ ${field("mensagem")}`;
         <button className="menu-button" type="button" aria-label={menuOpen ? "Fechar menu" : "Abrir menu"} aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}><span /><span /></button>
       </header>
 
-      <a className="whatsapp-float" href={whatsappLink} target="_blank" rel="noreferrer" aria-label="Falar com a K7 Sites pelo WhatsApp"><Image src="/whatsapp.svg" alt="" width={38} height={38} aria-hidden="true" /></a>
+      <a className="whatsapp-float" href={whatsappLink} target="_blank" rel="noreferrer" aria-label="Falar com a K7 Sites pelo WhatsApp" onClick={() => trackWhatsAppClick("floating_button", "Falar pelo WhatsApp")}><Image src="/whatsapp.svg" alt="" width={38} height={38} aria-hidden="true" /></a>
 
       <section className="hero" id="inicio">
         <div className="hero-grid" aria-hidden="true" /><div className="hero-glow" aria-hidden="true" />
@@ -516,12 +529,12 @@ ${field("mensagem")}`;
           <aside className="contact-panel reveal">
             <div className="contact-brand"><Image src="/k7-logo.png" alt="K7 Sites" width={70} height={70} /><div><b>K7 Sites</b><span>Sites que posicionam e convertem</span></div></div>
             <p className="contact-kicker">ORÇAMENTO SIMPLES</p><h3>Seu próximo projeto começa com uma conversa clara.</h3><p>Preencha o briefing rápido. Assim conseguimos entender seu momento antes do primeiro contato.</p>
-            <div className="contact-direct"><small>PREFERE FALAR AGORA?</small><a className="whatsapp-direct" href={whatsappLink} target="_blank" rel="noreferrer">WhatsApp: (11) 94921-4071 <Arrow diagonal /></a></div>
+            <div className="contact-direct"><small>PREFERE FALAR AGORA?</small><a className="whatsapp-direct" href={whatsappLink} target="_blank" rel="noreferrer" onClick={() => trackWhatsAppClick("final_cta", "WhatsApp: (11) 94921-4071")}>WhatsApp: (11) 94921-4071 <Arrow diagonal /></a></div>
           </aside>
           <div className="form-shell reveal">{!sent ? <form onSubmit={submitForm}>
             <div className="form-pane active"><h3>Conte sobre o seu projeto.</h3><label>Qual é o seu nome?<input name="nome" required placeholder="Digite seu nome" /></label><label>Qual é o melhor e-mail?<input name="email" type="email" required placeholder="voce@empresa.com.br" /></label><label>Qual tipo de projeto você precisa?<select name="projeto" required defaultValue=""><option value="" disabled>Selecione uma opção</option><option>Landing page</option><option>Site institucional</option><option>Página de vendas</option><option>Site para cursos</option><option>Redesign</option><option>Outro</option></select></label><label>Qual é o principal objetivo?<select name="objetivo" required defaultValue=""><option value="" disabled>Selecione uma opção</option><option>Gerar contatos</option><option>Vender uma oferta</option><option>Apresentar a empresa</option><option>Lançar um produto</option><option>Atualizar o site atual</option></select></label><label>Me conte um pouco sobre sua empresa e o projeto.<textarea name="mensagem" rows={5} required placeholder="O que você vende, para quem e qual resultado espera?" /></label></div>
             <div className="form-actions"><button className="button button-primary" type="submit">Enviar pelo WhatsApp <Arrow /></button></div>
-          </form> : <div className="form-success"><span><Check /></span><small>FORMULÁRIO VALIDADO</small><h3>As informações estão prontas.</h3><p>O WhatsApp foi aberto em uma nova aba. Se ela foi bloqueada, use o link abaixo para continuar.</p><a className="button button-primary" href={submittedWhatsappLink} target="_blank" rel="noopener noreferrer">Continuar no WhatsApp <Arrow /></a><button type="button" onClick={() => setSent(false)}>Preencher novamente</button></div>}</div>
+          </form> : <div className="form-success"><span><Check /></span><small>FORMULÁRIO VALIDADO</small><h3>As informações estão prontas.</h3><p>O WhatsApp foi aberto em uma nova aba. Se ela foi bloqueada, use o link abaixo para continuar.</p><a className="button button-primary" href={submittedWhatsappLink} target="_blank" rel="noopener noreferrer" onClick={() => trackWhatsAppClick("final_cta", "Continuar no WhatsApp")}>Continuar no WhatsApp <Arrow /></a><button type="button" onClick={() => setSent(false)}>Preencher novamente</button></div>}</div>
         </div>
       </div></section>
 
@@ -530,7 +543,7 @@ ${field("mensagem")}`;
       <footer className="footer"><div className="container footer-main">
         <div><a className="brand footer-brand" href="#inicio"><Image src="/k7-preloader-logo.png" alt="K7 Sites" width={104} height={108} /></a><p>Sites e landing pages com estratégia, identidade e acabamento profissional.</p></div>
         <div><small>NAVEGAÇÃO</small><a href="#servicos">Serviços</a><a href="#projetos">Projetos</a><a href="#processo">Processo</a><a href="#sobre">Sobre</a></div>
-        <div><small>CONTATO</small><a href="mailto:k7sites@gmail.com">k7sites@gmail.com</a><a href={whatsappLink} target="_blank" rel="noreferrer">WhatsApp: (11) 94921-4071</a></div>
+        <div><small>CONTATO</small><a href="mailto:k7sites@gmail.com">k7sites@gmail.com</a><a href={whatsappLink} target="_blank" rel="noreferrer" onClick={() => trackWhatsAppClick("final_cta", "WhatsApp: (11) 94921-4071")}>WhatsApp: (11) 94921-4071</a></div>
         <div><small>PRONTO PARA COMEÇAR?</small><a className="footer-cta" href="#orcamento">Pedir orçamento <Arrow diagonal /></a></div>
       </div><div className="container footer-bottom"><span>© {new Date().getFullYear()} K7 Sites. Todos os direitos reservados.</span><span>Design e desenvolvimento: K7 Sites</span><a href="#inicio">Voltar ao topo ↑</a></div></footer>
       </main>
