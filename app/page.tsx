@@ -3,15 +3,16 @@
 import Image from "next/image";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { ImageStream } from "@/components/ui/image-stream";
+import { HomeProjectsSection } from "@/components/ui/home-projects-gallery";
 import { SitePreloader } from "@/components/site-preloader";
 import { trackEvent } from "@/lib/analytics";
 
 const whatsappLink = "https://wa.me/5511949214071?text=Ol%C3%A1%21%20Vim%20pelo%20site%20da%20K7%20Sites%20e%20gostaria%20de%20pedir%20um%20or%C3%A7amento.";
 const googleReviewsLink = "https://share.google/pDIhvdTpTxOyWEIOe";
 const heroTitleWords = [
-  { text: "Sites" }, { text: "profissionais" }, { text: "para" }, { text: "transformar" },
-  { text: "sua" }, { text: "presença" }, { text: "digital" }, { text: "em" },
-  { text: "novas", accent: true }, { text: "oportunidades.", accent: true },
+  { text: "Sites" }, { text: "e" }, { text: "Landing" }, { text: "Pages" },
+  { text: "profissionais" }, { text: "a" }, { text: "partir" }, { text: "de" },
+  { text: "R$399", accent: true },
 ];
 
 const technologies = [
@@ -43,19 +44,6 @@ const deliveries = [
   { icon: "⌕", title: "Estrutura preparada para SEO", text: "Boas práticas técnicas e conteúdo indexável para ajudar o Google a compreender sua página." },
   { icon: "◉", title: "Contato direto pelo WhatsApp", text: "Botões e formulários aproximam o visitante da sua empresa e tornam o atendimento mais simples." },
   { icon: "⬡", title: "Orientação até a publicação", text: "A K7 acompanha os ajustes e orienta as etapas necessárias para colocar o projeto no ar." },
-];
-
-const projects = [
-  { theme: "barber", src: "/project-stream/barbearia.png", type: "SITE PARA BARBEARIA", title: "Barbearia premium", note: "Estilo • Serviços • Reservas" },
-  { theme: "restaurant", src: "/niche-premium/restaurant.png", type: "SITE PARA RESTAURANTE", title: "Brasa Cozinha Autoral", note: "Experiência • Menu • Reservas" },
-  { theme: "fitness", src: "/niche-premium/fitness.png", type: "SITE PARA ACADEMIA", title: "Pulse Performance", note: "Treinos • Performance • Planos" },
-  { theme: "aesthetic", src: "/niche-premium/aesthetic.png", type: "SITE PARA ESTÉTICA", title: "Maison Aura", note: "Tratamentos • Bem-estar • Agendamento" },
-  { theme: "dental", src: "/niche-premium/dental.png", type: "SITE PARA ODONTOLOGIA", title: "Oralys Odontologia", note: "Tecnologia • Confiança • Sorrisos" },
-  { theme: "realestate", src: "/niche-premium/real-estate.png", type: "SITE PARA IMOBILIÁRIA", title: "Vértice Private Homes", note: "Imóveis • Exclusividade • Patrimônio" },
-  { theme: "law", src: "/niche-premium/law.png", type: "SITE PARA ADVOCACIA", title: "Aurum Legal", note: "Autoridade • Estratégia • Confiança" },
-  { theme: "beauty", src: "/niche-premium/beauty.png", type: "SITE PARA SALÃO DE BELEZA", title: "Éclat Beauty Studio", note: "Estilo • Transformação • Reservas" },
-  { theme: "photography", src: "/niche-premium/photography.png", type: "SITE PARA FOTOGRAFIA", title: "Lume Editorial", note: "Portfólio • Direção • Ensaios" },
-  { theme: "fashion", src: "/niche-premium/fashion.png", type: "LOJA DE MODA", title: "Noma Atelier", note: "Coleções • Editorial • E-commerce" },
 ];
 
 const nicheProjects = [
@@ -204,81 +192,6 @@ function TestimonialsSlider() {
 
 const Check = () => <span className="check" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none"><path d="m5 10.2 3.1 3.1L15.5 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg></span>;
 
-function ProjectMockup({ project }: { project: (typeof projects)[number] }) {
-  const photo = project.src;
-
-  if (project.theme === "restaurant") return <div className="niche-mockup" aria-hidden="true"><div className="niche-page restaurant-page">
-    <header><b>BRASA<small>COZINHA AUTORAL</small></b><nav>Experiência&nbsp;&nbsp; Menu&nbsp;&nbsp; Adega&nbsp;&nbsp; Contato</nav><i>Reservar mesa</i></header>
-    <section className="restaurant-hero"><Image src={photo} alt="" fill sizes="50vw" /><div className="restaurant-copy"><small>SÃO PAULO • DESDE 2018</small><h4>Fogo, origem e uma mesa para lembrar.</h4><p>Ingredientes brasileiros conduzidos por técnica contemporânea.</p><b>Conheça o menu degustação</b></div><aside><span>MENU EM 7 TEMPOS</span><strong>R$ 320</strong><small>harmonização opcional</small></aside></section>
-    <div className="restaurant-note"><span>01 — ingredientes locais</span><span>02 — cozinha aberta</span><span>03 — adega premiada</span></div>
-    <section className="restaurant-menu"><div><small>ASSINATURAS DA CASA</small><h5>Uma cozinha guiada pelas estações.</h5></div><div><article><span>ENTRADA</span><b>Vieira, caju e ervas</b><small>cítrico • delicado • fresco</small></article><article><span>PRINCIPAL</span><b>Angus, cebola e tucupi</b><small>brasa • intensidade • origem</small></article><article><span>SOBREMESA</span><b>Cacau, café e cumaru</b><small>amazônico • elegante • profundo</small></article></div></section>
-    <footer><b>BRASA</b><span>Rua Harmonia, 142 • Vila Madalena</span><i>Reservas (11) 3088-7142</i></footer>
-  </div></div>;
-
-  if (project.theme === "fitness") return <div className="niche-mockup" aria-hidden="true"><div className="niche-page fitness-page">
-    <header><b>PULSE<span>/</span>PERFORMANCE</b><nav>Método&nbsp;&nbsp; Treinos&nbsp;&nbsp; Coaches&nbsp;&nbsp; Unidades</nav><i>Teste grátis</i></header>
-    <section className="fitness-hero"><Image src={photo} alt="" fill sizes="50vw" /><div><small>PERFORMANCE SEM ATALHOS</small><h4>Seu próximo nível não espera.</h4><p>Treino individualizado, acompanhamento real e uma comunidade que puxa você para frente.</p><b>COMEÇAR AGORA ↗</b></div><strong>01<small>FORÇA</small></strong></section>
-    <div className="fitness-stats"><span><b>42</b> coaches certificados</span><span><b>96%</b> atingem a primeira meta</span><span><b>06</b> unidades em São Paulo</span></div>
-    <section className="fitness-programs"><div><small>ESCOLHA O SEU RITMO</small><h5>Programas para objetivos reais.</h5></div><div><article><i>01</i><b>Strength</b><p>Força, técnica e progressão mensurável.</p></article><article><i>02</i><b>Engine</b><p>Condicionamento para render mais.</p></article><article><i>03</i><b>Recover</b><p>Mobilidade, recuperação e longevidade.</p></article></div></section>
-    <footer><b>7 dias para sentir a diferença.</b><span>Av. Paulista, 1842 • Bela Vista</span><i>Agendar aula experimental</i></footer>
-  </div></div>;
-
-  if (project.theme === "aesthetic") return <div className="niche-mockup" aria-hidden="true"><div className="niche-page aesthetic-page">
-    <header><b>MAISON AURA</b><nav>Tratamentos&nbsp;&nbsp; Especialistas&nbsp;&nbsp; A Maison</nav><i>Agendar consulta</i></header>
-    <section className="aesthetic-hero"><div className="aesthetic-copy"><small>CIÊNCIA, BELEZA E TEMPO</small><h4>Cuidado que respeita a sua essência.</h4><p>Protocolos personalizados para resultados naturais, elegantes e seguros.</p><b>Descobrir meu protocolo</b></div><div className="aesthetic-photo"><Image src={photo} alt="" fill sizes="50vw" /><span>Resultados sutis.<br />Confiança visível.</span></div></section>
-    <div className="aesthetic-signature"><span>01 / Pele</span><span>02 / Contorno</span><span>03 / Bem-estar</span><i>São Paulo • Jardins</i></div>
-    <section className="aesthetic-services"><small>NOSSOS CUIDADOS</small><h5>Precisão clínica, experiência sensorial.</h5><div><article><b>Skin Quality</b><p>Hidratação profunda e luminosidade.</p><span>45 min — a partir de R$ 590</span></article><article><b>Contour Ritual</b><p>Tecnologia para definição e firmeza.</p><span>60 min — avaliação individual</span></article></div></section>
-    <footer><b>Maison Aura</b><span>Al. Santos, 1174 • Jardins</span><i>(11) 3062-4420</i></footer>
-  </div></div>;
-
-  if (project.theme === "dental") return <div className="niche-mockup" aria-hidden="true"><div className="niche-page dental-premium-page">
-    <header><b>ORALYS<small>ODONTOLOGIA INTEGRADA</small></b><nav>Especialidades&nbsp;&nbsp; Tecnologia&nbsp;&nbsp; Corpo clínico</nav><i>Agendar avaliação</i></header>
-    <section className="dental-premium-hero"><Image src={photo} alt="" fill sizes="50vw" /><div><small>ODONTOLOGIA DE ALTO PADRÃO</small><h4>Confiança começa com um sorriso bem cuidado.</h4><p>Planejamento digital, especialistas integrados e atenção em cada etapa.</p><b>Agende sua primeira consulta →</b></div></section>
-    <div className="dental-proof"><span><b>4,9</b> avaliação no Google</span><span><b>12+</b> especialistas</span><span><b>8.400</b> pacientes atendidos</span><i>CRO-SP 00000 • clínica demonstrativa</i></div>
-    <section className="dental-specialties"><div><small>ESPECIALIDADES</small><h5>Tecnologia para cuidar de forma completa.</h5></div><div><article><i>◌</i><b>Implantes</b><p>Planejamento 3D e cirurgia guiada.</p></article><article><i>◇</i><b>Alinhadores</b><p>Ortodontia discreta e previsível.</p></article><article><i>✦</i><b>Estética</b><p>Resultados naturais e personalizados.</p></article></div></section>
-    <footer><b>ORALYS</b><span>R. Joaquim Floriano, 881 • Itaim Bibi</span><i>Agendar consulta</i></footer>
-  </div></div>;
-
-  if (project.theme === "realestate") return <div className="niche-mockup" aria-hidden="true"><div className="niche-page realestate-page">
-    <section className="realestate-hero"><Image src={photo} alt="" fill sizes="50vw" /><header><b>VÉRTICE<small>PRIVATE HOMES</small></b><nav>Comprar&nbsp;&nbsp; Lançamentos&nbsp;&nbsp; Vender&nbsp;&nbsp; Journal</nav><i>Atendimento privado</i></header><div className="realestate-copy"><small>PROPRIEDADE EM DESTAQUE • FAZENDA BOA VISTA</small><h4>Arquitetura para viver o extraordinário.</h4><p>Residência Horizonte • 1.180 m² • 6 suítes</p><b>Conhecer esta propriedade</b></div><span className="realestate-index">01 / 08</span></section>
-    <div className="property-search"><span><small>LOCALIZAÇÃO</small>São Paulo e interior</span><span><small>TIPO</small>Casas e apartamentos</span><span><small>FAIXA DE VALOR</small>Acima de R$ 5 milhões</span><i>Buscar imóveis →</i></div>
-    <section className="property-selection"><div><small>CURADORIA VÉRTICE</small><h5>Endereços únicos para histórias únicas.</h5></div><div><article><span>JARDINS</span><b>Penthouse Alameda</b><small>428 m² • 4 suítes • R$ 14,8 mi</small></article><article><span>QUINTA DA BARONEZA</span><b>Casa Pátio</b><small>1.060 m² • 5 suítes • sob consulta</small></article></div></section>
-    <footer><b>Vértice Private Homes</b><span>Av. Europa, 318 • São Paulo</span><i>private@verticehomes.com.br</i></footer>
-  </div></div>;
-
-  if (project.theme === "law") return <div className="niche-mockup" aria-hidden="true"><div className="niche-page law-page">
-    <header><b>AURUM<small>LEGAL ADVISORY</small></b><nav>Atuação&nbsp;&nbsp; Sócios&nbsp;&nbsp; Insights&nbsp;&nbsp; Escritórios</nav><i>Fale com um especialista</i></header>
-    <section className="law-hero"><Image src={photo} alt="" fill sizes="50vw" /><div><small>ESTRATÉGIA JURÍDICA PARA DECISÕES COMPLEXAS</small><h4>Rigor técnico. Visão de negócio. Presença.</h4><p>Assessoria próxima para empresas, famílias e patrimônios em movimento.</p><b>Conheça nossa atuação</b></div><span>25<small>ANOS DE EXCELÊNCIA</small></span></section>
-    <div className="law-marquee"><span>CORPORATE & M&A</span><i /> <span>CONTENCIOSO ESTRATÉGICO</span><i /> <span>PATRIMONIAL E SUCESSÓRIO</span></div>
-    <section className="law-practices"><div><small>EXPERTISE</small><h5>Clareza para proteger, negociar e avançar.</h5><p>Equipes multidisciplinares e atendimento sênior em todas as etapas.</p></div><div><article><i>01</i><b>Empresarial</b><span>Contratos, governança e operações</span></article><article><i>02</i><b>Resolução de conflitos</b><span>Estratégia processual e arbitragem</span></article><article><i>03</i><b>Patrimônio</b><span>Planejamento e sucessão</span></article></div></section>
-    <footer><b>Aurum Legal</b><span>São Paulo • Brasília • Lisboa</span><i>contato@aurumlegal.com</i></footer>
-  </div></div>;
-
-  if (project.theme === "beauty") return <div className="niche-mockup" aria-hidden="true"><div className="niche-page beauty-premium-page">
-    <header><span>☰ MENU</span><b>ÉCLAT<small>BEAUTY STUDIO</small></b><i>RESERVAR</i></header>
-    <section className="beauty-premium-hero"><div><small>NEW SEASON / 2026</small><h4>Beleza com atitude e assinatura.</h4><p>Cortes, cor e styling criados para traduzir quem você é.</p><b>AGENDE SUA EXPERIÊNCIA ↗</b></div><div className="beauty-premium-photo"><Image src={photo} alt="" fill sizes="50vw" /><span>COLOR<br />CODE</span></div></section>
-    <div className="beauty-ticker"><span>CUT</span><i>✦</i><span>COLOR</span><i>✦</i><span>STYLE</span><i>✦</i><span>BRIDAL</span></div>
-    <section className="beauty-editorial"><aside><span>01</span><b>Transformação com intenção.</b><p>Diagnóstico de imagem, técnica e acabamento impecável.</p></aside><div><small>SERVIÇOS DESTAQUE</small><article><b>Signature Cut</b><span>60 min</span><i>R$ 280</i></article><article><b>Color Experience</b><span>180 min</span><i>sob consulta</i></article><article><b>Bridal Beauty</b><span>projeto completo</span><i>reservar</i></article></div></section>
-    <footer><b>ÉCLAT</b><span>Rua Oscar Freire, 720 • São Paulo</span><i>(11) 96318-5527</i></footer>
-  </div></div>;
-
-  if (project.theme === "photography") return <div className="niche-mockup" aria-hidden="true"><div className="niche-page photography-page">
-    <header><b>LUME<span>©26</span></b><nav>Selected work&nbsp;&nbsp; Portraits&nbsp;&nbsp; Motion&nbsp;&nbsp; About</nav><i>Start a project ↗</i></header>
-    <section className="photography-hero"><Image src={photo} alt="" fill sizes="50vw" /><div className="photo-vertical">PORTRAIT • FASHION • CAMPAIGN</div><h4>Images with<br /><em>presence.</em></h4><span>01 — CAMPAIGN / AURA</span><small>São Paulo & worldwide</small></section>
-    <section className="photo-manifesto"><span>EDITORIAL STUDIO</span><h5>We create visual stories that hold attention and reveal character.</h5><i>Scroll to explore ↓</i></section>
-    <section className="photo-grid"><div><Image src={photo} alt="" fill sizes="25vw" /><span>PORTRAIT 01</span></div><div><Image src={photo} alt="" fill sizes="25vw" /><span>BEHIND THE SCENES</span></div><aside><small>SELECTED SERVICES</small><b>Fashion editorial</b><b>Brand campaign</b><b>Creative portrait</b><i>Request portfolio →</i></aside></section>
-    <footer><b>LUME EDITORIAL</b><span>hello@lumestudio.art</span><i>Instagram / Vimeo / Behance</i></footer>
-  </div></div>;
-
-  return <div className="niche-mockup" aria-hidden="true"><div className="niche-page fashion-page">
-    <header><span>MENU</span><b>NOMA<small>ATELIER</small></b><nav>New in&nbsp;&nbsp; Woman&nbsp;&nbsp; Essentials&nbsp;&nbsp; Journal</nav><i>Bag (0)</i></header>
-    <section className="fashion-hero"><div className="fashion-photo"><Image src={photo} alt="" fill sizes="50vw" /><span>01 / 05</span></div><div><small>COLLECTION 026 — QUIET FORM</small><h4>Form follows feeling.</h4><p>Tailoring with presence, created in limited editions from natural materials.</p><b>SHOP THE COLLECTION →</b><i>Free shipping in Brazil above R$ 1.200</i></div></section>
-    <div className="fashion-strip"><span>NEW ARRIVALS</span><span>CRAFTED IN BRAZIL</span><span>LIMITED EDITIONS</span></div>
-    <section className="fashion-collection"><div><small>THE EDIT</small><h5>Objects of everyday elegance.</h5></div><div><article><span className="fashion-crop"><Image src={photo} alt="" fill sizes="25vw" /></span><b>Alba Blazer</b><small>Off white — R$ 1.890</small></article><article><span className="fashion-crop"><Image src={photo} alt="" fill sizes="25vw" /></span><b>Forma Trouser</b><small>Sand — R$ 1.190</small></article><article><span className="fashion-crop"><Image src={photo} alt="" fill sizes="25vw" /></span><b>Linea Coat</b><small>Ivory — R$ 2.490</small></article></div></section>
-    <footer><b>NOMA ATELIER</b><span>São Paulo • Brasil</span><i>Newsletter&nbsp;&nbsp; Atendimento&nbsp;&nbsp; Instagram</i></footer>
-  </div></div>;
-}
-
 function CounterStat({ value, suffix, label }: { value: number; suffix: string; label: string }) {
   const [displayValue, setDisplayValue] = useState(0);
   const statRef = useRef<HTMLElement>(null);
@@ -399,7 +312,7 @@ ${field("mensagem")}`;
         <div className="hero-grid" aria-hidden="true" /><div className="hero-glow" aria-hidden="true" />
         <div className="container hero-layout" id="conteudo">
           <div className="hero-copy">
-            <p className="eyebrow enter"><span /> CRIAÇÃO DE SITES E LANDING PAGES</p>
+            <p className="eyebrow enter"><span /> PRESENÇA DIGITAL PROFISSIONAL</p>
             <h1 className="enter delay-1" aria-label="Sites profissionais para transformar sua presença digital em novas oportunidades">
               {heroTitleWords.map((word, wordIndex) => {
                 const characterOffset = heroTitleWords.slice(0, wordIndex).reduce((total, item) => total + item.text.length, 0);
@@ -465,10 +378,7 @@ ${field("mensagem")}`;
         <div className="timeline process-timeline">{[["01", "Diagnóstico", "Entendemos seu objetivo, público, oferta, referências e necessidades técnicas."], ["02", "Estratégia e conteúdo", "Organizamos a jornada da página e definimos a mensagem principal de cada seção."], ["03", "Design e desenvolvimento", "Criamos a identidade visual da página e construímos a experiência responsiva."], ["04", "Revisão e publicação", "Aplicamos os ajustes previstos, validamos a navegação e orientamos sobre a entrega."]].map(([number, title, text]) => <article className="timeline-item reveal" key={number}><span>{number}</span><div><h3>{title}</h3><p>{text}</p></div><i><Check /></i></article>)}</div>
       </div></section>
 
-      <section className="section projects" id="projetos"><div className="container">
-        <div className="section-heading split reveal"><div><p className="eyebrow dark"><span /> PROJETOS E POSSIBILIDADES</p><h2>Cada site começa com um <em>objetivo específico.</em></h2></div><p>Conheça um projeto real e conceitos demonstrativos criados para diferentes segmentos, públicos e formas de apresentação.</p></div>
-        <div className="project-grid">{projects.map((project) => <article className="project-card reveal" key={project.title}><div className="project-screen real-project"><div className="project-browser"><i /><i /><i /><span>projeto demonstrativo K7 Sites</span></div>{project.theme === "barber" ? <Image src={project.src} alt="Mockup completo da Barbearia Mestre" fill sizes="(max-width: 860px) 100vw, 50vw" /> : <ProjectMockup project={project} />}</div><div className="project-meta"><div><small>{project.type}</small><h3>{project.title}</h3><p>{project.note}</p></div><i><Arrow diagonal /></i></div></article>)}</div>
-      </div></section>
+      <HomeProjectsSection />
 
       <section className="conversion-block"><div className="container"><div className="conversion-card reveal"><div className="conversion-grid" aria-hidden="true" /><div className="conversion-layout"><div><p className="eyebrow"><span /> APRESENTE MELHOR O SEU NEGÓCIO</p><h2>Seu site deve transmitir a qualidade do que você <em>entrega.</em></h2></div><div><p>Conte o que sua empresa precisa e receba uma orientação sobre o formato de projeto mais adequado.</p><a className="button button-light" href="#orcamento">Falar sobre meu projeto <Arrow /></a></div></div></div></div></section>
 
